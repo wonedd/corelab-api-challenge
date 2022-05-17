@@ -17,6 +17,10 @@ Se você s sentir mais confortável, pode escolher qualquer outro _framework_ de
 
 Tente nos mostrar tudo o que você pode fazer, quanto mais você fizer pelo código e se importar com ele, mais nós vamos nos impressionar. Essa é a sua **CHANCE**.
 
+### Mobile Layout
+O Layout do Mobile pode ser encontrado aqui: https://shorturl.ae/kePzC
+### Desktop Layout
+O Layout do Desktop pode ser encontrado aqui: https://shorturl.ae/xEIEo
 
 ### Backend
 Repositório: 
