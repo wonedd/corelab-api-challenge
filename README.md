@@ -17,6 +17,10 @@ If you feel more comfortable, you can pick another Node JS framework and show us
 
 Try to show us all the skills you have, the more you do and care about the code, the more we get impressed. That's your **CHANCE**.
 
+### Mobile Layout
+The Mobile Layout can be found here: https://shorturl.ae/kePzC
+### Desktop Layout
+The Desktop Layout can be found here: https://shorturl.ae/xEIEo
 
 ### Backend
 Repository: 
