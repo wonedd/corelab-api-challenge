@@ -7,7 +7,19 @@ app.use(express.json())
 
 const vehicles = [];
 
-app.post('/vehicles', (req, res) => {
+function verifyIfExistsPlate(req, res, next){
+    const { plate } = req.body;
+
+    const vehicle = vehicles.find(vehicle => vehicle.plate === plate);
+     
+    if(vehicle){
+        return res.status(400).json({error: 'Vehicle already exists'});
+    }
+    
+    return next()
+  }
+
+app.post('/vehicles', verifyIfExistsPlate, (req, res) => {
     const { name, brand, color, year, plate } = req.body
 
     const vehicle = {
@@ -27,7 +39,7 @@ app.post('/vehicles', (req, res) => {
     return res.status(201).json(vehicle)
 })
 
-app.get('/vehicles', (req, res) => {
+app.get('/', (req, res) => {
     return res.json(vehicles)
 })
 
@@ -80,5 +92,7 @@ app.patch('/vehicles/:id', (req, res) => {
 
     return res.status(200).json(vehicle)
 })
+
+// TODO: search logic 
 
 app.listen(3333)
