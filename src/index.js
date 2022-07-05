@@ -52,7 +52,7 @@ app.put('/vehicles/:id', (req, res) => {
 
 })
 
-app.delete('vehicles/:id', (req, res) => {
+app.delete('/vehicles/:id', (req, res) => {
     const { id } = req.params
 
     const vehicle = vehicles.find(vehicle => vehicle.id === id);
