@@ -17,6 +17,7 @@ app.post('/vehicles', (req, res) => {
         year,
         plate,
         id: v4(),
+        price:Math.ceil(Math.random() * 100000),
         favorite:false,
         createdAt: new Date()
     }
