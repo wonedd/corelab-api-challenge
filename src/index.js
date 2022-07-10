@@ -9,6 +9,8 @@ const cors = require("cors");
 
 const vehicles = [];
 
+const descriptions = ["Usado", "Novo"];
+
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
@@ -41,6 +43,7 @@ app.post("/vehicles", verifyIfExistsPlate, (req, res) => {
     price: Math.ceil(Math.random() * 100000),
     favorite: false,
     createdAt: new Date(),
+    description: descriptions[Math.floor(Math.random() * descriptions.length)],
   };
 
   vehicles.push(vehicle);
@@ -50,6 +53,10 @@ app.post("/vehicles", verifyIfExistsPlate, (req, res) => {
 
 app.get("/", (req, res) => {
   return res.json(vehicles);
+});
+
+app.get("/favorites", (req, res) => {
+  return res.json(favorites);
 });
 
 app.put("/vehicles/:id", (req, res) => {
@@ -100,6 +107,14 @@ app.patch("/vehicles/:id", (req, res) => {
   return res.status(200).json(vehicle);
 });
 
-// TODO: search logic
+app.delete("/favorites/:id", (req, res) => {
+  const { id } = req.params;
+
+  const favorite = favorites.find((favorite) => favorite.id === id);
+
+  favorites.splice(favorites.indexOf(favorite), 1);
+
+  return res.status(200).json(favorite);
+});
 
 app.listen(3333);
