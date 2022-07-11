@@ -9,6 +9,8 @@ const cors = require("cors");
 
 const vehicles = [];
 
+const filteredVehicles = [];
+
 const descriptions = ["Usado", "Novo"];
 
 app.use((req, res, next) => {
@@ -107,14 +109,43 @@ app.patch("/vehicles/:id", (req, res) => {
   return res.status(200).json(vehicle);
 });
 
-app.delete("/favorites/:id", (req, res) => {
+app.patch("/favorites/:id", (req, res) => {
   const { id } = req.params;
 
-  const favorite = favorites.find((favorite) => favorite.id === id);
+  const vehicle = vehicles.find((vehicle) => vehicle.id === id);
 
-  favorites.splice(favorites.indexOf(favorite), 1);
+  if (!vehicle) {
+    return res.status(400).json({ error: "Vehicle not found" });
+  }
 
-  return res.status(200).json(favorite);
+  vehicle.favorite = false;
+
+  return res.status(200).json(vehicle);
+});
+
+app.post("/filter", (req, res) => {
+  const { brand, color, year } = req.body;
+
+  const vehicle = {
+    brand,
+    color,
+    year,
+  };
+
+  filteredVehicles.push(vehicle);
+
+  return res.status(201).json(vehicle);
+});
+
+app.get("/filter", (req, res) => {
+  const vehicle = vehicles.forEach((item) => item.brand);
+
+  const findByBrand = filteredVehicles.find(
+    (item) => item.brand === vehicle.brand
+  );
+
+  console.log(findByBrand);
+  return res.status(201).json(findByBrand);
 });
 
 app.listen(3333);
