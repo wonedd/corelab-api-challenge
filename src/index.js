@@ -57,10 +57,6 @@ app.get("/", (req, res) => {
   return res.json(vehicles);
 });
 
-app.get("/favorites", (req, res) => {
-  return res.json(favorites);
-});
-
 app.put("/vehicles/:id", (req, res) => {
   const { name, brand, color, year, plate } = req.body;
 
@@ -123,29 +119,23 @@ app.patch("/favorites/:id", (req, res) => {
   return res.status(200).json(vehicle);
 });
 
-app.post("/filter", (req, res) => {
-  const { brand, color, year } = req.body;
+app.get("/vehicles/filter", (req, res) => {
+  const { year, brand, color, min, max } = req.query;
 
-  const vehicle = {
-    brand,
-    color,
-    year,
-  };
+  filteredVehicles.length = 0;
 
-  filteredVehicles.push(vehicle);
+  vehicles.forEach((vehicle) => {
+    if (
+      vehicle.year === year ||
+      vehicle.brand === brand ||
+      vehicle.color === color ||
+      (vehicle.price >= min && vehicle.price <= max)
+    ) {
+      filteredVehicles.push(vehicle);
+    }
+  });
 
-  return res.status(201).json(vehicle);
-});
-
-app.get("/filter", (req, res) => {
-  const vehicle = vehicles.forEach((item) => item.brand);
-
-  const findByBrand = filteredVehicles.find(
-    (item) => item.brand === vehicle.brand
-  );
-
-  console.log(findByBrand);
-  return res.status(201).json(findByBrand);
+  return res.json(filteredVehicles);
 });
 
 app.listen(3333);
